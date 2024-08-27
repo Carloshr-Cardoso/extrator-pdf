@@ -19,6 +19,7 @@ public class PdfTextExtrator {
     public static List<PageContentDTO> extract(InputStream inputStream) throws IOException {
         List<PageContentDTO> pageContents = new ArrayList<>();
         Tesseract tesseract = new Tesseract();
+        tesseract.setLanguage("por");
 
         try (PDDocument document = PDDocument.load(inputStream)) {
             PDFRenderer pdfRenderer = new PDFRenderer(document);
