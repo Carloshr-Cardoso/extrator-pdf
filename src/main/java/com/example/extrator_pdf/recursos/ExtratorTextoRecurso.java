@@ -13,17 +13,22 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/pdf")
-public class PdfExtratorRecurso {
+@RequestMapping("api/v1")
+public class ExtratorTextoRecurso {
     private final PdfExtratorServico servico;
 
-    public PdfExtratorRecurso(PdfExtratorServico servico) {
+    public ExtratorTextoRecurso(PdfExtratorServico servico) {
         this.servico = servico;
     }
 
-    @PostMapping("/extrair-conteudo")
+    @PostMapping("pdf/extrair-conteudo")
     public ResponseEntity<List<PageContentDTO>> extractTextFromPdf(@RequestParam("file") MultipartFile file) throws IOException {
-        List<PageContentDTO> pages = servico.extractText(file);
+        List<PageContentDTO> pages = servico.extractTextFromPdf(file);
         return ResponseEntity.ok(pages);
+    }
+
+    @PostMapping("imagem/extrair-conteudo")
+    public ResponseEntity<PageContentDTO> extractTextFromImage(@RequestParam("file") MultipartFile file) throws IOException {
+        return ResponseEntity.ok(servico.extractTextFromImage(file));
     }
 }
